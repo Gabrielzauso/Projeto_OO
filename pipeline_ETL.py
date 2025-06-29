@@ -8,6 +8,13 @@ class PipelineETL:
 
     def executar(self, dados=None):  # Correção aqui
         for etapa in self.__etapas:
-            dados = etapa.executar(dados)
-        print("[PipelineTransformacao] Processo finalizado")
-        return dados 
+            try:
+                    dados = etapa.executar(dados)
+                    print(f"[{etapa.__class__.__name__}] Processo finalizado")
+                
+            except Exception as e:
+                 print(f"[ERRO] Falha na etapa {etapa.__class__.__name__}: {e}")
+                 print("[PipelineETL] Execução interrompida devido ao erro.")
+                 break  # Para o pipeline aqui
+        
+        return dados

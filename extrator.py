@@ -21,10 +21,12 @@ class ExtratorAPI(EtapaETL):
         try:
             response = rq.get(self.__url)
             response.raise_for_status()
+            status_code = response.status_code
+            print(f"[{__class__.__name__}] Status da requisição: {status_code}")
             data = response.json()
             df = pd.DataFrame(data)
             return df
         except rq.exceptions.RequestException as e:
-            print(f"Erro na requisição: {e}")
+            print(f"[{__class__.__name__}] Status da requisição: {e}")
         except ValueError as e:
             print(f"Erro ao converter JSON: {e}")
