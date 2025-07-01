@@ -13,4 +13,5 @@ if __name__ == "__main__":
     pipeline.adicionar_etapa(Validador_Email("email"))
     pipeline.adicionar_etapa(CarregadorCSV("usuarios.csv"))
 
+    
     dados = pipeline.executar()
